@@ -2,7 +2,6 @@
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
 		"allowJs": true,
-		"baseUrl": ".",
 		"checkJs": true,
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true,
@@ -13,11 +12,11 @@
 		"moduleResolution": "bundler",
 		"allowImportingTsExtensions": true,
 		"paths": {
-			"$lib/*": ["src/lib/*"],
-			"$utils/*": ["src/lib/utils/*"],
-			"$components/*": ["src/lib/components/*"],
-			"$types/*": ["src/lib/types/*"],
-			"@/*": ["src/*"]
+			"$lib/*": ["./src/lib/*"],
+			"$utils/*": ["./src/lib/utils/*"],
+			"$components/*": ["./src/lib/components/*"],
+			"$types/*": ["./src/lib/types/*"],
+			"@/*": ["./src/*"]
 		}
 	}
 	// Path aliases are handled by https://svelte.dev/docs/kit/configuration#alias
