@@ -1,14 +1,15 @@
-// import { supabase } from '$lib/supabase.server.ts';
-// import { redirect } from '@sveltejs/kit';
+import { supabase } from '$lib/supabase.server.ts';
+import { redirect } from '@sveltejs/kit';
 
-// export async function load() {
-// 	const {
-// 		data: { session }
-// 	} = await supabase.auth.getSession();
+export async function load({ locals }) {
+	const {
+		data: { session }
+	} = await supabase.auth.getSession();
 
-// 	if (session) {
-// 		throw redirect(302, '/dashboard');
-// 	} else {
-// 		throw redirect(302, '/auth/login');
-// 	}
-// }
+	if (session) {
+		locals.user = session.user;
+		throw redirect(302, '/dashboard');
+	} else {
+		throw redirect(302, '/auth/login');
+	}
+}

@@ -14,10 +14,9 @@ export async function POST({ request, cookies }) {
 		return json({ error: error.message }, { status: 500 });
 	}
 
-	// Store session in cookies (optional)
 	cookies.set('sb-access-token', access_token, {
 		path: '/',
-		httpOnly: true, // Prevent JavaScript access for security
+		httpOnly: true,
 		secure: process.env.NODE_ENV === 'production',
 		sameSite: 'strict',
 		maxAge: 3600 // 1 hour
