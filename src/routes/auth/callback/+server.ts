@@ -14,7 +14,7 @@ export async function POST({ request, cookies }) {
 		return json({ error: error.message }, { status: 500 });
 	}
 
-	cookies.set('sb-access-token', access_token, {
+	cookies.set('access_token', access_token, {
 		path: '/',
 		httpOnly: true,
 		secure: process.env.NODE_ENV === 'production',

@@ -9,7 +9,6 @@
 	} from '$lib/components/ui/card';
 	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';
-	import { Progress } from '$lib/components/ui/progress';
 	import { Separator } from '$lib/components/ui/separator';
 	import {
 		ArrowUpRight,
@@ -127,7 +126,6 @@
 								<span>{category.name}</span>
 								<span>{formatCurrency(category.amount)}</span>
 							</div>
-							<Progress value={category.amount / 20} class={category.color} />
 						</div>
 					{/each}
 				</CardContent>

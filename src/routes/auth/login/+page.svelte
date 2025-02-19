@@ -44,7 +44,7 @@
 						}
 					} else if (result.type === 'error') {
 						data = result.error;
-						console.log(data, 'nigga');
+						console.log(data, 'data');
 
 						toast.error('Login failed!', {
 							id: toastID

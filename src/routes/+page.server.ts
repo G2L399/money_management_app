@@ -8,7 +8,7 @@ export async function load({ locals }) {
 
 	if (session) {
 		locals.user = session.user;
-		throw redirect(302, '/dashboard');
+		// throw redirect(302, '/dashboard');
 	} else {
 		throw redirect(302, '/auth/login');
 	}

@@ -1,7 +1,7 @@
 import { supabase } from '$lib/supabase.server.ts';
 
 export const actions = {
-	async signUp({ request }) {
+	async signup({ request }) {
 		const formData = new URLSearchParams(await request.text());
 		const email = formData.get('email')!;
 		const password = formData.get('password')!;
@@ -15,23 +15,6 @@ export const actions = {
 			message: 'Check your email for confirmation!',
 			status: 200,
 			redirect: '/auth/callback',
-			data
-		};
-	},
-
-	async signIn({ request }) {
-		const formData = new URLSearchParams(await request.text());
-		const email = formData.get('email')!;
-		const password = formData.get('password')!;
-
-		const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-		if (error) {
-			return { errorMessage: error.message };
-		}
-		return {
-			successMessage: 'Successfully signed in',
-			status: 200,
-			redirect: '/dashboard',
 			data
 		};
 	}

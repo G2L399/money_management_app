@@ -36,6 +36,7 @@ export const actions = {
 			sameSite: 'strict',
 			maxAge: expires_in
 		});
+		console.log('nig');
 
 		return {
 			message: 'Successfully signed in',

@@ -10,7 +10,7 @@
 	let data = $state();
 </script>
 
-<div class="flex flex-col items-center justify-center w-screen h-screen">
+<div class="flex h-screen w-screen flex-col items-center justify-center">
 	<h2 class="text-3xl">Sign Up</h2>
 
 	<div class="flex flex-col items-center justify-center">
@@ -23,10 +23,10 @@
 					return (data = data.data);
 				};
 			}}
-			action="?/signUp"
+			action="?/signup"
 			method="POST"
 		>
-			<div class="w-96 flex flex-col items-center justify-center gap-4">
+			<div class="flex w-96 flex-col items-center justify-center gap-4">
 				<div class="w-full">
 					<Label for="email" class="text-xl">Email</Label>
 					<Input bind:value={email} name="email" />
@@ -35,7 +35,7 @@
 					<Label class="text-xl" for="password">Password</Label>
 					<Input bind:value={password} name="password" type="password" />
 				</div>
-				<Button class="w-full h-auto text-xl" disabled={loading} type="submit">Sign Up</Button>
+				<Button class="h-auto w-full text-xl" disabled={loading} type="submit">Sign Up</Button>
 			</div>
 		</form>
 		<a href="/auth/login" aria-label="Login">Have an account?</a>
