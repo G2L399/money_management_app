@@ -5,6 +5,7 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { Label } from '$lib/components/ui/label';
+	import { cn } from '$lib/utils';
 
 	let loading = $state(false);
 	let email = $state('');
@@ -57,15 +58,19 @@
 			action="?/signIn"
 			method="POST"
 		>
-			<div class="flex w-96 flex-col items-center justify-center gap-4">
-				<div class="w-full">
+			<div class={cn('flex w-96 flex-col items-center justify-center gap-4', '[&>*]:w-full')}>
+				<div>
 					<Label for="email" class="text-xl">Email</Label>
 					<Input bind:value={email} name="email" />
 				</div>
-				<div class="w-full">
+				<div>
 					<Label class="text-xl" for="password">Password</Label>
 					<Input bind:value={password} name="password" type="password" />
 				</div>
+				<a href="/auth/signup" class="text-end text-base hover:underline">
+					Don't have an account?
+				</a>
+
 				<Button class="h-auto w-full text-xl" disabled={loading} type="submit">Sign In</Button>
 			</div>
 		</form>

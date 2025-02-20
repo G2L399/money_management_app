@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { transactions, categories, balance } from '@prisma/client';
+
 	import {
 		Card,
 		CardContent,
@@ -19,12 +21,6 @@
 		Coffee
 	} from 'lucide-svelte';
 
-	let balance = 5280.5;
-	let recentTransactions = [
-		{ id: 1, name: 'Grocery Store', amount: -85.2, date: '2025-02-01' },
-		{ id: 2, name: 'Salary Deposit', amount: 3000, date: '2025-01-31' },
-		{ id: 3, name: 'Electric Bill', amount: -120.5, date: '2025-01-30' }
-	];
 	let expenseCategories = [
 		{ name: 'Food', amount: 450, color: 'bg-blue-500' },
 		{ name: 'Transport', amount: 200, color: 'bg-green-500' },
@@ -35,6 +31,13 @@
 	function formatCurrency(amount: number) {
 		return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
 	}
+	export let data: {
+		trans: (transactions & { categories: categories | null })[];
+		balances: balance;
+	};
+
+	const { trans, balances } = data;
+	const balanceAmount = balances.amount;
 </script>
 
 <div class="flex h-screen bg-gray-100">
@@ -78,7 +81,7 @@
 				<CardDescription>Your current account balance</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<p class="text-4xl font-bold">{formatCurrency(balance)}</p>
+				<p class="text-4xl font-bold">{formatCurrency(balanceAmount)}</p>
 			</CardContent>
 		</Card>
 
@@ -89,14 +92,16 @@
 					<CardTitle>Recent Transactions</CardTitle>
 				</CardHeader>
 				<CardContent>
-					{#each recentTransactions as transaction}
+					{#each trans as transaction, index}
 						<div class="mb-4 flex items-center justify-between">
 							<div>
-								<p class="font-semibold">{transaction.name}</p>
-								<p class="text-sm text-gray-500">{transaction.date}</p>
+								<p class="font-semibold">{transaction.categories!.name}</p>
+								<p class="text-sm text-gray-500">
+									{transaction.transaction_date.toLocaleDateString()}
+								</p>
 							</div>
-							<p class={transaction.amount > 0 ? 'text-green-600' : 'text-red-600'}>
-								{#if transaction.amount > 0}
+							<p class={transaction.type != 'EXPENSES' ? 'text-green-600' : 'text-red-600'}>
+								{#if transaction.type != 'EXPENSES'}
 									<ArrowUpRight class="mr-1 inline" />
 								{:else}
 									<ArrowDownRight class="mr-1 inline" />
@@ -104,7 +109,7 @@
 								{formatCurrency(Math.abs(transaction.amount))}
 							</p>
 						</div>
-						{#if transaction.id !== recentTransactions.length}
+						{#if index !== trans.length - 1}
 							<Separator class="my-2" />
 						{/if}
 					{/each}

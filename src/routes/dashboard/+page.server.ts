@@ -1,15 +1,23 @@
-import { supabase } from '$lib/supabase.server';
+import prisma from '$lib/prisma.ts';
 
 export const load = async ({ locals }) => {
-	const { data: balance, error } = await supabase
-		.from('balance')
-		.select('*')
-		.eq('user_id', locals.user?.id); // Explicitly filter
+	const balances = await prisma.balance.findFirst({
+		where: {
+			user_id: locals.user!.id
+		}
+	});
+	const trans = await prisma.transactions.findMany({
+		where: {
+			user_id: locals.user!.id
+		},
+		include: {
+			categories: true
+		},
+		orderBy: {
+			created_at: 'desc'
+		},
+		take: 3
+	});
 
-	if (error) {
-		console.error('Error fetching balance:', error);
-	}
-
-	console.log('Balance:', balance);
-	return { balance };
+	return { trans, balances };
 };
